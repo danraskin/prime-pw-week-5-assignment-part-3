@@ -101,7 +101,7 @@ let searchTerm
 function searchArtist (search) {
     let results = [];
     for (let i=0; i < collection.length; i++) {
-        if (search.artist === null ||search.artist === undefined ) { //This, to account for 'undefined,' 'null' or blank string in search.artist input object;
+        if (search === undefined || search.artist === undefined || search.year === undefined) {
             return collection;
         } else if (search.artist.toLowerCase() === collection[i].artist.toLowerCase() && search.year === collection[i].year) {
             results.push(collection[i]);
@@ -120,7 +120,7 @@ searchTerm = {
     year: 1966
 }
 
-console.log(`Searching known partial match`, searchTerm); //testing script
+console.log(`Testing artist match x3 + year no match`, searchTerm); //testing script
 console.log(`Expecting empty array:`, searchArtist(searchTerm)); //testing script
 
 searchTerm = {
@@ -128,27 +128,40 @@ searchTerm = {
     year: 1973
 }
 
-console.log(`Searching known match`, searchTerm); //testing script
+console.log(`Testing artist match x3 + year match x1`, searchTerm); //testing script
 console.log(`Expecting 1 result`, searchArtist(searchTerm)); //testing script
 
 
 searchTerm = {
-    artist: 'Sun Ra',
+    artist: 'sun ra',
     year: 1965
 }
 
-console.log(`Searching known match`, searchTerm); //testing script
+console.log(`Testing artist match x3, lower case input + year match x2`, searchTerm); //testing script
 console.log(`Expecting 2 results`, searchArtist(searchTerm)); //testing script
 
 searchTerm = {
-
 }
 
-console.log(`Inputs empty search object`, searchTerm); //testing script
+console.log(`Testing empty search object`, searchTerm); //testing script
 console.log(`Expecting full collection`, searchArtist(searchTerm)); //testing script
 
-console.log(`running NO search term: searchArtist()`); //testing script
+searchTerm = {
+    artist: 'Sun Ra'
+}
+
+console.log(`Testing artist + empty year input`, searchTerm); //testing script
 console.log(`Expecting full collection`, searchArtist(searchTerm)); //testing script
+
+searchTerm = {
+    year: 1973
+}
+
+console.log(`Testing empty artist input + year`, searchTerm); //testing script
+console.log(`Expecting full collection`, searchArtist(searchTerm)); //testing script
+
+console.log(`Testing NO search term: searchArtist()`); //testing script
+console.log(`Expecting full collection`, searchArtist()); //testing script
 
 
 // - Add an array of `tracks` to your album objects. Each track should have a `name` and `duration`. You will need to update the functions to support this new property:
