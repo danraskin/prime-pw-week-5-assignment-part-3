@@ -25,11 +25,11 @@ function addToCollection (title, artist, year) {
 //   - Console.log each album as added using the returned value.
 //   - After all are added, console.log the `collection` array.
 
-addToCollection('Secret Treaties','Blue Oyster Cult',1972);
-addToCollection('Western Culture','Henry Cow', 1978);
+addToCollection('Secret Treaties', 'Blue Oyster Cult', 1972);
+addToCollection('Western Culture', 'Henry Cow', 1978);
 addToCollection('Nightclubbing', 'Grace Jones', 1980);
 addToCollection('Warm Leatherette', 'Grace Jones', 1981);
-addToCollection('Arthur, or the Decline and Fall','The Kinks', 1969);
+addToCollection('Arthur, or the Decline and Fall', 'The Kinks', 1969);
 addToCollection('Solo for Wounded CD', 'Yasunao Tone', 1997);
 
 console.log('Hey check out my Discogs!!', collection);
@@ -84,6 +84,72 @@ console.log(`Do you even have any Can?`, findByArtist('Can'), 'No? Embarassing!'
 //     - Return a new array of all items in the `collection` matching *all* of the search criteria.
 //     - If no results are found, return an empty array.
 //     - If there is no search object or an empty search object provided as input, then return all albums in the `collection`.
+
+
+function createSearch (title, artist, year) {
+    album = {
+        title: title,
+        artist: artist,
+        year: year
+    }
+    collection.push(album);
+    return album;
+}
+
+let searchTerm
+
+function searchArtist (search) {
+    let results = [];
+    for (let i=0; i < collection.length; i++) {
+        if (search.artist === null ||search.artist === undefined ) { //This, to account for 'undefined,' 'null' or blank string in search.artist input object;
+            return collection;
+        } else if (search.artist.toLowerCase() === collection[i].artist.toLowerCase() && search.year === collection[i].year) {
+            results.push(collection[i]);
+            console.log('** in searchArtist. match, push to results', results); //testing script
+        }
+    }
+    return results; 
+}
+
+addToCollection('The Heliocentric Worlds of Sun Ra, Volume 1', 'Sun Ra', 1965);
+addToCollection('The Heliocentric Worlds of Sun Ra, Volume 2', 'Sun Ra', 1965);
+addToCollection('Space Is the Place', 'Sun Ra', 1973);
+
+searchTerm = {
+    artist: 'Sun Ra',
+    year: 1966
+}
+
+console.log(`Searching known partial match`, searchTerm); //testing script
+console.log(`Expecting empty array:`, searchArtist(searchTerm)); //testing script
+
+searchTerm = {
+    artist: 'Sun Ra',
+    year: 1973
+}
+
+console.log(`Searching known match`, searchTerm); //testing script
+console.log(`Expecting 1 result`, searchArtist(searchTerm)); //testing script
+
+
+searchTerm = {
+    artist: 'Sun Ra',
+    year: 1965
+}
+
+console.log(`Searching known match`, searchTerm); //testing script
+console.log(`Expecting 2 results`, searchArtist(searchTerm)); //testing script
+
+searchTerm = {
+
+}
+
+console.log(`Inputs empty search object`, searchTerm); //testing script
+console.log(`Expecting full collection`, searchArtist(searchTerm)); //testing script
+
+console.log(`running NO search term: searchArtist()`); //testing script
+console.log(`Expecting full collection`, searchArtist(searchTerm)); //testing script
+
 
 // - Add an array of `tracks` to your album objects. Each track should have a `name` and `duration`. You will need to update the functions to support this new property:
 //   - Update the `addToCollection` function to also take an input parameter for the array of tracks.
