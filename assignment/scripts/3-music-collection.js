@@ -10,11 +10,25 @@ collection = [];
 //   - Add the new object to the end of the `collection` array
 //   - Return the newly created object
 
-function addToCollection (title, artist, year) {
+function addToCollection (title, artist, year, [[track1,time1],[track2,time2],[track3,time3]]) { // function DOES NOT WORK if any of the track arguments are missing! had to add blank track to input of one record with 2 tracks.
     album = {
         title: title,
         artist: artist,
-        year: year
+        year: year,
+        track: {
+            1: {
+                track: track1,
+                time: time1
+            },
+            2: {
+                track: track2,
+                time: time2
+            },
+            3: {
+                track: track3,
+                time: time3
+            }
+        }
     }
     collection.push(album);
     return album;
@@ -25,12 +39,12 @@ function addToCollection (title, artist, year) {
 //   - Console.log each album as added using the returned value.
 //   - After all are added, console.log the `collection` array.
 
-addToCollection('Secret Treaties', 'Blue Oyster Cult', 1972);
-addToCollection('Western Culture', 'Henry Cow', 1978);
-addToCollection('Nightclubbing', 'Grace Jones', 1980);
-addToCollection('Warm Leatherette', 'Grace Jones', 1981);
-addToCollection('Arthur, or the Decline and Fall', 'The Kinks', 1969);
-addToCollection('Solo for Wounded CD', 'Yasunao Tone', 1997);
+addToCollection('Solo for Wounded CD', 'Yasunao Tone', 1997, [[`Part I`,`4:33`],[`Part II`,`4:33`],[,]]);
+addToCollection('Secret Treaties', 'Blue Oyster Cult', 1972, [[`Career of Evil`,`4:33`],[`Subhuman`,`4:33`],[`Dominance and Submission`,`4:33`]]);
+addToCollection('Western Culture', 'Henry Cow', 1978, [[`Industry`,`4:33`],[`The Decay of Cities`,`4:33`],[`On the Raft`,`4:33`]]);
+addToCollection('Nightclubbing', 'Grace Jones', 1980, [[`Walking In the Rain`,`4:33`],[`Pull Up to the Bumper`,`4:33`],[`Use Me`,`4:33`]]);
+addToCollection('Warm Leatherette', 'Grace Jones', 1981, [[`She's Lost Control`,`4:33`],[`Pars`,`4:33`],[`Breakdown`,`4:33`]]);
+addToCollection('Arthur, or the Decline and Fall', 'The Kinks', 1969, [[`Victoria`,`4:33`],[`Yes Sir, No Sir`,`4:33`],[`Some Mother's Son`,`4:33`]]);
 
 console.log('Hey check out my Discogs!!', collection);
 
@@ -101,19 +115,26 @@ let searchTerm
 function searchArtist (search) {
     let results = [];
     for (let i=0; i < collection.length; i++) {
-        if (search === undefined || search.artist === undefined || search.year === undefined) {
+        if (search === undefined || (search.artist === undefined && search.year === undefined)) {
             return collection;
-        } else if (search.artist.toLowerCase() === collection[i].artist.toLowerCase() && search.year === collection[i].year) {
-            results.push(collection[i]);
-            console.log('** in searchArtist. match, push to results', results); //testing script
+        } else if (search.artist === undefined && search.year === collection[i].year) {
+                results.push(collection[i]);
+                console.log('** in searchArtist. match year, push to results', results); //testing script
+        } else if (search.artist === collection[i].artist && search.year === undefined) {
+                results.push(collection[i]);
+                console.log('** in searchArtist. match artist, push to results', results); //testing script
+        } else if (search.artist === collection[i].artist && search.year === collection[i].year) {
+                results.push(collection[i]);
+                console.log('** in searchArtist. match artist+year, push to results', results); //testing script
+        
         }
     }
     return results; 
 }
 
-addToCollection('The Heliocentric Worlds of Sun Ra, Volume 1', 'Sun Ra', 1965);
-addToCollection('The Heliocentric Worlds of Sun Ra, Volume 2', 'Sun Ra', 1965);
-addToCollection('Space Is the Place', 'Sun Ra', 1973);
+addToCollection('The Heliocentric Worlds of Sun Ra, Volume 1', 'Sun Ra', 1965,[[`Heliocentric`,`4:33`],[`Outer Nothingness`,`4:33`],[`Other Worlds`,`4:33`]]);
+addToCollection('The Heliocentric Worlds of Sun Ra, Volume 2', 'Sun Ra', 1965, [[`The Sun Myth`,`4:33`],[`A House of Beauty`,`4:33`],[`Cosmic Chaos`,`4:33`]]);
+addToCollection('Space Is the Place', 'Sun Ra', 1973,[[`Space Is the Place`,`4:33`],[`Images`,`4:33`],[`Discipline`,`4:33`]]);
 
 searchTerm = {
     artist: 'Sun Ra',
@@ -133,11 +154,11 @@ console.log(`Expecting 1 result`, searchArtist(searchTerm)); //testing script
 
 
 searchTerm = {
-    artist: 'sun ra',
+    artist: 'Sun Ra',
     year: 1965
 }
 
-console.log(`Testing artist match x3, lower case input + year match x2`, searchTerm); //testing script
+console.log(`Testing artist match x3 + year match x2`, searchTerm); //testing script
 console.log(`Expecting 2 results`, searchArtist(searchTerm)); //testing script
 
 searchTerm = {
@@ -151,14 +172,14 @@ searchTerm = {
 }
 
 console.log(`Testing artist + empty year input`, searchTerm); //testing script
-console.log(`Expecting full collection`, searchArtist(searchTerm)); //testing script
+console.log(`Expecting 3 results`, searchArtist(searchTerm)); //testing script
 
 searchTerm = {
     year: 1973
 }
 
 console.log(`Testing empty artist input + year`, searchTerm); //testing script
-console.log(`Expecting full collection`, searchArtist(searchTerm)); //testing script
+console.log(`Expecting 1 results`, searchArtist(searchTerm)); //testing script
 
 console.log(`Testing NO search term: searchArtist()`); //testing script
 console.log(`Expecting full collection`, searchArtist()); //testing script
