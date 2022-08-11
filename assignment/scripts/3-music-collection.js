@@ -139,11 +139,11 @@ console.log(`Do you even have any Can?`, findByArtist('Can'), 'No? Embarassing!'
 //     - If there is no search object or an empty search object provided as input, then return all albums in the `collection`.
 
 
-function createSearch (title, artist, year) {
+function createSearch (artist, year, track) {
     album = {
-        title: title,
         artist: artist,
-        year: year
+        year: year,
+        track: track
     }
     collection.push(album);
     return album;
@@ -151,7 +151,7 @@ function createSearch (title, artist, year) {
 
 let searchTerm
 
-function searchArtist (search) {
+function searchArtist (search) { //can only accept exact case matches for artist/track strings!
     let results = [];
     for (let i=0; i < collection.length; i++) {
         if (search === undefined || (search.artist === undefined && search.year === undefined)) {
@@ -250,7 +250,6 @@ console.log(`Expecting 1 results`, searchArtist(searchTerm)); //testing script
 
 console.log(`Testing NO search term: searchArtist()`); //testing script
 console.log(`Expecting full collection`, searchArtist()); //testing script
-
 
 // - Add an array of `tracks` to your album objects. Each track should have a `name` and `duration`. You will need to update the functions to support this new property:
 //   - Update the `addToCollection` function to also take an input parameter for the array of tracks.
