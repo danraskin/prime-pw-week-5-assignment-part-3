@@ -3,6 +3,7 @@ console.log('***** Music Collection *****')
 // - Create a variable `collection` that starts as an empty array.
 
 collection = [];
+let track1, track2, track3;
 
 // - Add a function named `addToCollection`. This function should:
 //   - Take in the album's `title`, `artist`, `yearPublished` as input parameters
@@ -10,25 +11,12 @@ collection = [];
 //   - Add the new object to the end of the `collection` array
 //   - Return the newly created object
 
-function addToCollection (title, artist, year, [[track1,time1],[track2,time2],[track3,time3]]) { // function DOES NOT WORK if any of the track arguments are missing! had to add blank track to input of one record with 2 tracks.
+function addToCollection (title, artist, year, tracks) { // function DOES NOT WORK if any of the track arguments are missing! had to add blank track to input of one record with 2 tracks.
     album = {
         title: title,
         artist: artist,
         year: year,
-        track: {
-            1: {
-                track: track1,
-                time: time1
-            },
-            2: {
-                track: track2,
-                time: time2
-            },
-            3: {
-                track: track3,
-                time: time3
-            }
-        }
+        tracks: [tracks]
     }
     collection.push(album);
     return album;
@@ -39,12 +27,63 @@ function addToCollection (title, artist, year, [[track1,time1],[track2,time2],[t
 //   - Console.log each album as added using the returned value.
 //   - After all are added, console.log the `collection` array.
 
-addToCollection('Solo for Wounded CD', 'Yasunao Tone', 1997, [[`Part I`,`4:33`],[`Part II`,`4:33`],[,]]);
-addToCollection('Secret Treaties', 'Blue Oyster Cult', 1972, [[`Career of Evil`,`4:33`],[`Subhuman`,`4:33`],[`Dominance and Submission`,`4:33`]]);
-addToCollection('Western Culture', 'Henry Cow', 1978, [[`Industry`,`4:33`],[`The Decay of Cities`,`4:33`],[`On the Raft`,`4:33`]]);
-addToCollection('Nightclubbing', 'Grace Jones', 1980, [[`Walking In the Rain`,`4:33`],[`Pull Up to the Bumper`,`4:33`],[`Use Me`,`4:33`]]);
-addToCollection('Warm Leatherette', 'Grace Jones', 1981, [[`She's Lost Control`,`4:33`],[`Pars`,`4:33`],[`Breakdown`,`4:33`]]);
-addToCollection('Arthur, or the Decline and Fall', 'The Kinks', 1969, [[`Victoria`,`4:33`],[`Yes Sir, No Sir`,`4:33`],[`Some Mother's Son`,`4:33`]]);
+addToCollection('Solo for Wounded CD', 'Yasunao Tone', 1997, [track1 = {
+        name: 'Part I',
+        time: '4:33'
+    }, track2 = {
+        name: 'Part II',
+        time: '4:33'
+}]);
+addToCollection('Secret Treaties', 'Blue Oyster Cult', 1972, [track1 = {
+        name: `Career of Evil`,
+        time: `4:33`
+    }, track2 = {
+        name: `Subhuman`,
+        time: `4:33`
+    }, track3 = {
+        name: `Dominance and Submission`,
+        time: `4:33`
+}]);
+addToCollection('Western Culture', 'Henry Cow', 1978, [track1 = {
+        name: `Industry`,
+        time: `4:33`
+    }, track2 = {
+        name: `The Decay of Cities`,
+        time: `4:33`
+    }, track3 = {
+        name: `On the Raft`,
+        time: `4:33`
+}]);
+addToCollection('Nightclubbing', 'Grace Jones', 1980,  [track1 = {
+        name: `Walking In the Rain`,
+        time: `4:33`
+    }, track2 = {
+        name: `Pull Up to the Bumper`,
+        time: `4:33`
+    }, track3 = {
+        name: `Use Me`,
+        time: `4:33`
+}]);
+addToCollection('Warm Leatherette', 'Grace Jones', 1981, [track1 = {
+        name: `She's Lost Control`,
+        time: `4:33`
+    }, track2 = {
+        name: `Pars`,
+        time: `4:33`
+    }, track3 = {
+        name: `Breakdown`,
+        time: `4:33`
+}]);    
+addToCollection('Arthur, or the Decline and Fall', 'The Kinks', 1969, [track1 = {
+        name: `Victoria`,
+        time: `4:33`
+    }, track2 = {
+        name: `Yes Sir, No Sir`,
+        time: `4:33`
+    }, track3 = {
+        name: `Some Mother's Son`,
+        time: `4:33`
+}]);    
 
 console.log('Hey check out my Discogs!!', collection);
 
@@ -132,9 +171,37 @@ function searchArtist (search) {
     return results; 
 }
 
-addToCollection('The Heliocentric Worlds of Sun Ra, Volume 1', 'Sun Ra', 1965,[[`Heliocentric`,`4:33`],[`Outer Nothingness`,`4:33`],[`Other Worlds`,`4:33`]]);
-addToCollection('The Heliocentric Worlds of Sun Ra, Volume 2', 'Sun Ra', 1965, [[`The Sun Myth`,`4:33`],[`A House of Beauty`,`4:33`],[`Cosmic Chaos`,`4:33`]]);
-addToCollection('Space Is the Place', 'Sun Ra', 1973,[[`Space Is the Place`,`4:33`],[`Images`,`4:33`],[`Discipline`,`4:33`]]);
+addToCollection('The Heliocentric Worlds of Sun Ra, Volume 1', 'Sun Ra', 1965,[track1 = {
+        name: `Heliocentric`,
+        time: `4:33`
+    }, track2 = {
+        name: `Outer Nothingess`,
+        time: `4:33`
+    }, track3 = {
+        name: `Other Worlds`,
+        time: `4:33`
+}]);    
+addToCollection('The Heliocentric Worlds of Sun Ra, Volume 2', 'Sun Ra', 1965,[track1 = {
+        name: `The Sun Myth`,
+        time: `4:33`
+    }, track2 = {
+        name: `A House of Beauty`,
+         time: `4:33`
+    }, track3 = {
+        name: `Cosmic Chaos`,
+        time: `4:33`
+}]);
+addToCollection('Space Is the Place', 'Sun Ra', 1973, [track1 = {
+        name: `Space Is the Place`,
+        time: `4:33`
+    }, track2 = {
+        name: `Images`,
+        time: `4:33`
+    }, track3 = {
+        name: `Discipline`,
+        time: `4:33`
+}]);    
+
 
 searchTerm = {
     artist: 'Sun Ra',
